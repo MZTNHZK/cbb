@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<!-- saved from url=(0093)https://pub-98e77454d5fc46438fe6f46cf574e4e5.r2.dev/c35eca03-25e4-4e57-b8c1-b467ef542068.html -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🦌了吗</title>
+    <!-- 引入截图插件 -->
+    <script src="./🦌了吗_files/saved_resource"></script>
+    <link href="./🦌了吗_files/saved_resource(1)" rel="stylesheet">
+    <style>
+        :root {
+            --主色: #6750A4;
+            --容器色: #EADDFF;
+            --背景色: #FEF7FF;
+            --文字色: #1D1B20;
+            --次要文字色: #79747E;
+        }
+
+        @keyframes 弹出 {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; font-family: 'Noto Sans SC', sans-serif; }
+        body { background-color: var(--背景色); color: var(--文字色); margin: 0; padding-bottom: 100px; display: flex; flex-direction: column; align-items: center; }
+
+        header { width: 100%; padding: 20px; font-size: 22px; font-weight: 500; text-align: center; }
+        .容器 { width: 92%; max-width: 500px; }
+        .卡片 { background: #E7E0EC; border-radius: 28px; padding: 24px; margin-bottom: 16px; position: relative; }
+
+        .用户栏 { font-size: 14px; color: var(--主色); margin-bottom: 12px; font-weight: bold; text-align: center; }
+        .统计格 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .数值 { font-size: 42px; font-weight: 700; color: var(--主色); text-align: center; }
+        .标签 { font-size: 14px; color: var(--次要文字色); text-align: center; }
+
+        .打卡按钮 { background: var(--容器色); color: #21005D; border: none; padding: 18px 40px; border-radius: 20px; font-size: 18px; font-weight: 700; display: block; margin: 20px auto 0; cursor: pointer; }
+        .分享按钮 { background: white; color: var(--主色); border: 1px solid var(--主色); padding: 8px 16px; border-radius: 100px; font-size: 13px; display: block; margin: 15px auto 0; cursor: pointer; }
+
+        .助鹿模块 { 
+            background: #F3EDF7; border: 2px dashed var(--主色); border-radius: 20px; 
+            padding: 15px; margin-top: 20px; text-align: center; 
+            display: none; animation: 弹出 0.3s ease-out forwards;
+        }
+        .神秘代码 { font-family: monospace; font-size: 32px; color: #B3261E; letter-spacing: 4px; font-weight: bold; margin: 8px 0; }
+
+        /* 截图预览遮罩 */
+        .截图预览 { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.8); display: none; flex-direction: column; align-items: center; justify-content: center; z-index: 1000; padding: 20px; }
+        .截图预览 img { max-width: 100%; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        
+        .底部栏 { position: fixed; bottom: 0; width: 100%; height: 80px; background: #F3EDF7; display: flex; align-items: center; border-top: 1px solid #E7E0EC; z-index: 99; }
+        .导航项 { flex: 1; text-align: center; text-decoration: none; color: var(--文字色); font-size: 14px; cursor: pointer; }
+
+        /* 隐藏弹窗样式 */
+        .全屏遮罩 { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 1001; }
+        .对话框 { background: var(--背景色); width: 85%; max-width: 320px; padding: 24px; border-radius: 28px; }
+    </style>
+</head>
+<body>
+
+    <!-- 截图保存提示 -->
+    <div id="截图遮罩" class="截图预览" onclick="this.style.display=&#39;none&#39;">
+        <div style="color:white; margin-bottom:15px;">长按上方图片保存🦌管战绩</div>
+        <div id="截图容器"></div>
+        <div style="color:rgba(255,255,255,0.6); margin-top:15px; font-size:12px;">点击任意位置关闭</div>
+    </div>
+
+    <!-- 首次命名 -->
+    <div id="命名遮罩" class="全屏遮罩" style="display: flex;">
+        <div class="对话框">
+            <div style="font-size: 20px; font-weight: 500;">输入你的炉管代号</div>
+            <input type="text" id="用户名输入" style="width:100%; padding:12px; margin:15px 0; border:1px solid var(--主色); border-radius:12px;" placeholder="例：MZTNHZK">
+            <button onclick="保存用户名()" style="background:var(--主色); color:white; border:none; padding:10px 20px; border-radius:100px; float:right;">开启打卡</button>
+        </div>
+    </div>
+
+    <header>🦌 了吗</header>
+
+    <div class="容器" id="主页内容">
+        <!-- 分享卡片的目标区域 -->
+        <div id="分享区域" style="background: var(--背景色); padding: 10px; border-radius: 20px;">
+            <div class="用户栏" id="用户展示">欢迎回来</div>
+            <div class="卡片">
+                <div class="统计格">
+                    <div><div class="数值" id="今日数">0</div><div class="标签">今日次数</div></div>
+                    <div><div class="数值" id="总计数">0</div><div class="标签">累计总量</div></div>
+                </div>
+                <button class="打卡按钮" id="打卡键" onclick="打卡()">立即打卡</button>
+                
+                <div class="助鹿模块" id="助鹿模块">
+                    <div class="标签">✨ JM助鹿：神秘代码 ✨</div>
+                    <div class="神秘代码" id="随机码">000000</div>
+                    <div style="font-size: 10px; text-align: center; color: var(--次要文字色);">开发团队：Yresr &amp; MZTN</div>
+                </div>
+            </div>
+        </div>
+        
+        <button class="分享按钮" onclick="生成图片()">生成分享卡片</button>
+
+        <div class="卡片" style="background: white; border: 1px solid #E7E0EC; margin-top: 20px;">
+            <div style="font-size: 12px; color: var(--主色); text-align: center; margin-bottom: 10px;">📅 榜单每周一更新</div>
+            <div id="排行列表"></div>
+        </div>
+    </div>
+
+    <!-- 关于/我的 -->
+    <div class="容器" id="关于内容" style="display:none; animation: 弹出 0.4s;">
+        <div class="卡片" style="text-align: center;">
+            <div style="font-size: 40px;"></div>
+            <div style="font-weight: bold; font-size: 20px; color: var(--主色);">关于我们</div>
+            <p>健康🦌管，从记录开始。</p>
+            <div style="background: rgba(0,0,0,0.05); padding: 15px; border-radius: 15px; margin-top: 10px;">
+                <div class="标签">开发团队</div>
+                <div style="font-weight: bold; margin: 5px 0;">Yresr &amp; MZTN</div>
+                <div class="标签">版本 1.5.0</div>
+            </div>
+        </div>
+    </div>
+
+    <nav class="底部栏">
+        <div class="导航项" onclick="切换(&#39;主页&#39;)"><br>首页</div>
+        <a href="https://qun.qq.com/universal-share/share?ac=1&amp;authKey=RFOkahlm0MSY68UbUiEDFsMOAFQqKKvJRbUidtgHyANgT5ipyMowCHxe6uZiEMrV&amp;busi_data=eyJncm91cENvZGUiOiI1OTIyNDg2MzIiLCJ0b2tlbiI6ImVZa1hqYU9GYUhkNXpFMzlSeVJWVTN5Q1FUUC95NERoSmNSNnEwL21PdFU5SnZDZ3RLejl6UkFHRnQ1ajhlVjYiLCJ1aW4iOiIzNzYxMjE4MTE0In0%3D&amp;data=SR9k8ufFxLm93lnWzpHfNSlW1Im-TvHRKP78ZaZkDHZ9nZhpLqsRgu7eQjBSG67L-Wya0BawQqYVkbtPFW9tng&amp;svctype=4&amp;tempid=h5_group_info" class="导航项"><br>社区</a>
+        <div class="导航项" onclick="切换(&#39;关于&#39;)"><br>我的</div>
+    </nav>
+
+    <script>
+        let 数据 = JSON.parse(localStorage.getItem('鹿数据')) || { 今日: 0, 总计: 0, 上次日期: "", 用户名: "" };
+        const 今天 = new Date().toLocaleDateString();
+
+        if (数据.上次日期 !== 今天) { 数据.今日 = 0; 数据.上次日期 = 今天; }
+
+        window.onload = () => {
+            if (!数据.用户名) document.getElementById('命名遮罩').style.display = 'flex';
+            else 刷新主页();
+        };
+
+        function 保存用户名() {
+            const val = document.getElementById('用户名输入').value;
+            数据.用户名 = val || "无名鹿友";
+            localStorage.setItem('鹿数据', JSON.stringify(数据));
+            document.getElementById('命名遮罩').style.display = 'none';
+            刷新主页();
+        }
+
+        function 刷新主页() {
+            document.getElementById('用户展示').innerText = `代号：${数据.用户名}`;
+            document.getElementById('今日数').innerText = 数据.今日;
+            document.getElementById('总计数').innerText = 数据.总计;
+            
+            // 模拟排行榜
+            const 地区 = ["广东省", "江苏省", "山东省", "河南省", "四川省"];
+            let html = "";
+            地区.forEach((d, i) => {
+                html += `<div class="排名项" style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid #eee;"><span>${i+1}. ${d}</span><b>${5000 - i*500}</b></div>`;
+            });
+            document.getElementById('排行列表').innerHTML = html;
+        }
+
+        function 打卡() {
+            数据.今日++; 数据.总计++;
+            localStorage.setItem('鹿数据', JSON.stringify(数据));
+            const code = Math.floor(100000 + Math.random() * 900000);
+            document.getElementById('随机码').innerText = code;
+            document.getElementById('助鹿模块').style.display = 'block';
+            刷新主页();
+            if (navigator.vibrate) navigator.vibrate(50);
+        }
+
+        function 切换(p) {
+            document.getElementById('主页内容').style.display = p === '主页' ? 'block' : 'none';
+            document.getElementById('关于内容').style.display = p === '关于' ? 'block' : 'none';
+        }
+
+        function 生成图片() {
+            const area = document.getElementById('分享区域');
+            const btn = document.getElementById('打卡键');
+            // 截图前隐藏按钮
+            btn.style.display = 'none';
+            
+            html2canvas(area, { backgroundColor: '#FEF7FF', scale: 2 }).then(canvas => {
+                const img = new Image();
+                img.src = canvas.toDataURL("image/png");
+                document.getElementById('截图容器').innerHTML = '';
+                document.getElementById('截图容器').appendChild(img);
+                document.getElementById('截图遮罩').style.display = 'flex';
+                btn.style.display = 'block';
+            });
+        }
+    </script>
+
+</body></html>
