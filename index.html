@@ -1,188 +1,213 @@
 <!DOCTYPE html>
-<!-- saved from url=(0093)https://pub-98e77454d5fc46438fe6f46cf574e4e5.r2.dev/c35eca03-25e4-4e57-b8c1-b467ef542068.html -->
+<!-- saved from url=(0093)https://pub-98e77454d5fc46438fe6f46cf574e4e5.r2.dev/5a3e38ce-e028-4aa4-bb2d-18b25db91c2c.html -->
 <html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>🦌了吗</title>
-    <!-- 引入截图插件 -->
     <script src="./🦌了吗_files/saved_resource"></script>
-    <link href="./🦌了吗_files/saved_resource(1)" rel="stylesheet">
     <style>
         :root {
-            --主色: #6750A4;
-            --容器色: #EADDFF;
-            --背景色: #FEF7FF;
-            --文字色: #1D1B20;
-            --次要文字色: #79747E;
+            --md-primary: #6750A4;
+            --md-surface: #F7F2FA;
+            --md-surface-variant: #E7E0EC;
+            --md-on-surface: #1C1B1F;
+            --md-outline: #79747E;
         }
 
-        @keyframes 弹出 {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
+        body, html { height: 100%; margin: 0; font-family: 'Roboto', 'Noto Sans SC', sans-serif; background-color: var(--md-surface); color: var(--md-on-surface); overflow: hidden; }
+
+        /* 安卓顶部栏 */
+        header { height: 64px; display: flex; align-items: center; padding: 0 16px; font-size: 22px; font-weight: 400; background: var(--md-surface); }
+
+        /* 页面容器 */
+        #content { height: calc(100% - 144px); overflow-y: auto; padding: 0 16px; scroll-behavior: smooth; }
+        .page { display: none; animation: android-fade 0.3s ease-out; }
+        .active { display: block; }
+        @keyframes android-fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* 安卓卡片风格 */
+        .card { background: var(--md-surface-variant); border-radius: 28px; padding: 24px; margin-bottom: 16px; border: none; }
+        .stat-box { display: flex; justify-content: space-around; text-align: center; }
+        .val { font-size: 44px; font-weight: 500; color: var(--md-primary); line-height: 1; }
+        .label { font-size: 14px; color: var(--md-outline); margin-top: 8px; }
+
+        /* 安卓原生大按钮 (Filled Button) */
+        .btn-main { 
+            background: var(--md-primary); color: white; border: none; width: 100%; height: 56px;
+            border-radius: 28px; font-size: 18px; font-weight: 500; cursor: pointer; margin-top: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: 0.2s;
         }
+        .btn-main:active { opacity: 0.8; transform: scale(0.97); }
 
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; font-family: 'Noto Sans SC', sans-serif; }
-        body { background-color: var(--背景色); color: var(--文字色); margin: 0; padding-bottom: 100px; display: flex; flex-direction: column; align-items: center; }
+        /* 助🦌代码区域 */
+        .code-box { background: #F3EDF7; border: 1px solid var(--md-primary); border-radius: 16px; padding: 16px; margin-top: 16px; display: none; text-align: center; }
+        .code-num { font-size: 32px; font-weight: 700; color: #B3261E; letter-spacing: 6px; }
 
-        header { width: 100%; padding: 20px; font-size: 22px; font-weight: 500; text-align: center; }
-        .容器 { width: 92%; max-width: 500px; }
-        .卡片 { background: #E7E0EC; border-radius: 28px; padding: 24px; margin-bottom: 16px; position: relative; }
+        /* 排名列表 */
+        .rank-item { display: flex; justify-content: space-between; padding: 16px 8px; border-bottom: 1px solid rgba(0,0,0,0.05); font-size: 16px; }
 
-        .用户栏 { font-size: 14px; color: var(--主色); margin-bottom: 12px; font-weight: bold; text-align: center; }
-        .统计格 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .数值 { font-size: 42px; font-weight: 700; color: var(--主色); text-align: center; }
-        .标签 { font-size: 14px; color: var(--次要文字色); text-align: center; }
-
-        .打卡按钮 { background: var(--容器色); color: #21005D; border: none; padding: 18px 40px; border-radius: 20px; font-size: 18px; font-weight: 700; display: block; margin: 20px auto 0; cursor: pointer; }
-        .分享按钮 { background: white; color: var(--主色); border: 1px solid var(--主色); padding: 8px 16px; border-radius: 100px; font-size: 13px; display: block; margin: 15px auto 0; cursor: pointer; }
-
-        .助鹿模块 { 
-            background: #F3EDF7; border: 2px dashed var(--主色); border-radius: 20px; 
-            padding: 15px; margin-top: 20px; text-align: center; 
-            display: none; animation: 弹出 0.3s ease-out forwards;
+        /* 安卓底部导航 (Navigation Bar) */
+        nav { 
+            position: fixed; bottom: 0; width: 100%; height: 80px; background: #F3EDF7; 
+            display: flex; justify-content: space-around; align-items: center; padding-bottom: 12px;
         }
-        .神秘代码 { font-family: monospace; font-size: 32px; color: #B3261E; letter-spacing: 4px; font-weight: bold; margin: 8px 0; }
+        .nav-item { 
+            flex: 1; text-align: center; font-size: 12px; font-weight: 500; color: var(--md-outline); 
+            display: flex; flex-direction: column; align-items: center; transition: 0.3s;
+        }
+        .nav-active { color: var(--md-primary); }
+        /* 安卓指示药丸 */
+        .indicator { 
+            width: 64px; height: 32px; border-radius: 16px; display: flex; align-items: center; 
+            justify-content: center; margin-bottom: 4px; transition: 0.3s;
+        }
+        .nav-active .indicator { background: #E8DEF8; }
 
-        /* 截图预览遮罩 */
-        .截图预览 { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.8); display: none; flex-direction: column; align-items: center; justify-content: center; z-index: 1000; padding: 20px; }
-        .截图预览 img { max-width: 100%; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        
-        .底部栏 { position: fixed; bottom: 0; width: 100%; height: 80px; background: #F3EDF7; display: flex; align-items: center; border-top: 1px solid #E7E0EC; z-index: 99; }
-        .导航项 { flex: 1; text-align: center; text-decoration: none; color: var(--文字色); font-size: 14px; cursor: pointer; }
-
-        /* 隐藏弹窗样式 */
-        .全屏遮罩 { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 1001; }
-        .对话框 { background: var(--背景色); width: 85%; max-width: 320px; padding: 24px; border-radius: 28px; }
+        /* 欢迎遮罩层 */
+        .scrim { position: fixed; inset: 0; background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; z-index: 2000; }
+        .dialog { background: var(--md-surface); padding: 24px; border-radius: 28px; width: 85%; max-width: 320px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+        .dialog h3 { margin: 0 0 16px; font-weight: 400; font-size: 24px; }
+        /* 安卓风格输入框 */
+        .md-input {
+            width: 100%; border: none; border-bottom: 2px solid var(--md-primary); 
+            background: var(--md-surface-variant); padding: 12px; border-radius: 4px 4px 0 0;
+            font-size: 16px; margin-bottom: 24px;
+        }
     </style>
 </head>
 <body>
 
-    <!-- 截图保存提示 -->
-    <div id="截图遮罩" class="截图预览" onclick="this.style.display=&#39;none&#39;">
-        <div style="color:white; margin-bottom:15px;">长按上方图片保存🦌管战绩</div>
-        <div id="截图容器"></div>
-        <div style="color:rgba(255,255,255,0.6); margin-top:15px; font-size:12px;">点击任意位置关闭</div>
-    </div>
-
-    <!-- 首次命名 -->
-    <div id="命名遮罩" class="全屏遮罩" style="display: flex;">
-        <div class="对话框">
-            <div style="font-size: 20px; font-weight: 500;">输入你的炉管代号</div>
-            <input type="text" id="用户名输入" style="width:100%; padding:12px; margin:15px 0; border:1px solid var(--主色); border-radius:12px;" placeholder="例：MZTNHZK">
-            <button onclick="保存用户名()" style="background:var(--主色); color:white; border:none; padding:10px 20px; border-radius:100px; float:right;">开启打卡</button>
+    <!-- 初始化弹窗 -->
+    <div id="init-scrim" class="scrim">
+        <div class="dialog">
+            <h3>设置代号</h3>
+            <input type="text" id="user-input" class="md-input" placeholder="代号 (如: MZTNHZK)" autocomplete="off">
+            <button onclick="saveName()" class="btn-main" style="margin-top:0">开始🦌管</button>
         </div>
     </div>
 
-    <header>🦌 了吗</header>
+    <header id="header-title">🦌了吗</header>
 
-    <div class="容器" id="主页内容">
-        <!-- 分享卡片的目标区域 -->
-        <div id="分享区域" style="background: var(--背景色); padding: 10px; border-radius: 20px;">
-            <div class="用户栏" id="用户展示">欢迎回来</div>
-            <div class="卡片">
-                <div class="统计格">
-                    <div><div class="数值" id="今日数">0</div><div class="标签">今日次数</div></div>
-                    <div><div class="数值" id="总计数">0</div><div class="标签">累计总量</div></div>
+    <div id="content">
+        <!-- 首页 -->
+        <div id="p0" class="page active">
+            <div id="capture-area">
+                <div style="padding: 8px; font-weight: 500; opacity: 0.8" id="show-name">正在载入...</div>
+                <div class="card">
+                    <div class="stat-box">
+                        <div><div class="val" id="day-c">0</div><div class="label">今日🦌管</div></div>
+                        <div><div class="val" id="all-c">0</div><div class="label">累计总数</div></div>
+                    </div>
+                    <button class="btn-main" onclick="doDeer()">立即🦌管</button>
+                    <div class="code-box" id="code-area">
+                        <div class="label" style="margin-top:0">✨ JM助🦌代码 ✨</div>
+                        <div class="code-num" id="code-val">000000</div>
+                    </div>
                 </div>
-                <button class="打卡按钮" id="打卡键" onclick="打卡()">立即打卡</button>
-                
-                <div class="助鹿模块" id="助鹿模块">
-                    <div class="标签">✨ JM助鹿：神秘代码 ✨</div>
-                    <div class="神秘代码" id="随机码">000000</div>
-                    <div style="font-size: 10px; text-align: center; color: var(--次要文字色);">开发团队：Yresr &amp; MZTN</div>
+            </div>
+            <button onclick="share()" style="background:none; border:1px solid var(--md-outline); color:var(--md-primary); width:100%; padding:12px; border-radius:100px; font-weight:500;">保存战绩卡片</button>
+        </div>
+
+        <!-- 排名 -->
+        <div id="p1" class="page">
+            <div class="card" style="background:white; border:1px solid #eee;">
+                <div style="font-weight:500; padding-bottom:16px; text-align:center;">全国活跃排行 (每周更新)</div>
+                <div id="rank-list"></div>
+            </div>
+        </div>
+
+        <!-- 地图 -->
+        <div id="p2" class="page" style="height:100%; padding:0">
+            <iframe id="map-frame" src="./🦌了吗_files/saved_resource.html" style="width:100%; height:100%; border:none;"></iframe>
+        </div>
+
+        <!-- 我的 -->
+        <div id="p3" class="page">
+            <div class="card">
+                <div style="text-align:center">
+                    <div class="label">开发团队</div>
+                    <div style="font-size:24px; font-weight:500; color:var(--md-primary); margin:8px 0;">Yresr &amp; MZTN</div>
+                    <div style="height:1px; background:rgba(0,0,0,0.05); margin:20px 0;"></div>
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px">
+                        <a href="https://qun.qq.com/universal-share/share?ac=1&amp;authKey=RFOkahlm0MSY68UbUiEDFsMOAFQqKKvJRbUidtgHyANgT5ipyMowCHxe6uZiEMrV&amp;busi_data=eyJncm91cENvZGUiOiI1OTIyNDg2MzIiLCJ0b2tlbiI6ImVZa1hqYU9GYUhkNXpFMzlSeVJWVTN5Q1FUUC95NERoSmNSNnEwL21PdFU5SnZDZ3RLejl6UkFHRnQ1ajhlVjYiLCJ1aW4iOiIzNzYxMjE4MTE0In0=&amp;data=SR9k8ufFxLm93lnWzpHfNSlW1Im-TvHRKP78ZaZkDHZ9nZhpLqsRgu7eQjBSG67L-Wya0BawQqYVkbtPFW9tng&amp;svctype=4&amp;tempid=h5_group_info" style="text-decoration:none; color:inherit; background:white; padding:16px; border-radius:16px; font-size:14px; font-weight:500">社区论坛</a>
+                        <a href="https://view.kuafuai.net/1159237/pagesA/user_center/index" style="text-decoration:none; color:inherit; background:white; padding:16px; border-radius:16px; font-size:14px; font-weight:500">在线社区</a>
+                    </div>
                 </div>
             </div>
         </div>
-        
-        <button class="分享按钮" onclick="生成图片()">生成分享卡片</button>
-
-        <div class="卡片" style="background: white; border: 1px solid #E7E0EC; margin-top: 20px;">
-            <div style="font-size: 12px; color: var(--主色); text-align: center; margin-bottom: 10px;">📅 榜单每周一更新</div>
-            <div id="排行列表"></div>
-        </div>
     </div>
 
-    <!-- 关于/我的 -->
-    <div class="容器" id="关于内容" style="display:none; animation: 弹出 0.4s;">
-        <div class="卡片" style="text-align: center;">
-            <div style="font-size: 40px;"></div>
-            <div style="font-weight: bold; font-size: 20px; color: var(--主色);">关于我们</div>
-            <p>健康🦌管，从记录开始。</p>
-            <div style="background: rgba(0,0,0,0.05); padding: 15px; border-radius: 15px; margin-top: 10px;">
-                <div class="标签">开发团队</div>
-                <div style="font-weight: bold; margin: 5px 0;">Yresr &amp; MZTN</div>
-                <div class="标签">版本 1.5.0</div>
-            </div>
-        </div>
-    </div>
-
-    <nav class="底部栏">
-        <div class="导航项" onclick="切换(&#39;主页&#39;)"><br>首页</div>
-        <a href="https://qun.qq.com/universal-share/share?ac=1&amp;authKey=RFOkahlm0MSY68UbUiEDFsMOAFQqKKvJRbUidtgHyANgT5ipyMowCHxe6uZiEMrV&amp;busi_data=eyJncm91cENvZGUiOiI1OTIyNDg2MzIiLCJ0b2tlbiI6ImVZa1hqYU9GYUhkNXpFMzlSeVJWVTN5Q1FUUC95NERoSmNSNnEwL21PdFU5SnZDZ3RLejl6UkFHRnQ1ajhlVjYiLCJ1aW4iOiIzNzYxMjE4MTE0In0%3D&amp;data=SR9k8ufFxLm93lnWzpHfNSlW1Im-TvHRKP78ZaZkDHZ9nZhpLqsRgu7eQjBSG67L-Wya0BawQqYVkbtPFW9tng&amp;svctype=4&amp;tempid=h5_group_info" class="导航项"><br>社区</a>
-        <div class="导航项" onclick="切换(&#39;关于&#39;)"><br>我的</div>
+    <nav>
+        <div class="nav-item nav-active" onclick="go(0)"><div class="indicator">首</div>首页</div>
+        <div class="nav-item" onclick="go(1)"><div class="indicator">排</div>排名</div>
+        <div class="nav-item" onclick="go(2)"><div class="indicator">图</div>地图</div>
+        <div class="nav-item" onclick="go(3)"><div class="indicator">我</div>我的</div>
     </nav>
 
     <script>
-        let 数据 = JSON.parse(localStorage.getItem('鹿数据')) || { 今日: 0, 总计: 0, 上次日期: "", 用户名: "" };
-        const 今天 = new Date().toLocaleDateString();
+        // 核心数据逻辑
+        let db = JSON.parse(localStorage.getItem('DEER_DATA_NEW')) || { day:0, total:0, name:"", date:"" };
+        const now = new Date().toDateString();
 
-        if (数据.上次日期 !== 今天) { 数据.今日 = 0; 数据.上次日期 = 今天; }
+        // 跨天重置
+        if(db.date !== now) { db.day = 0; db.date = now; }
 
-        window.onload = () => {
-            if (!数据.用户名) document.getElementById('命名遮罩').style.display = 'flex';
-            else 刷新主页();
-        };
-
-        function 保存用户名() {
-            const val = document.getElementById('用户名输入').value;
-            数据.用户名 = val || "无名鹿友";
-            localStorage.setItem('鹿数据', JSON.stringify(数据));
-            document.getElementById('命名遮罩').style.display = 'none';
-            刷新主页();
+        // 修复初始化逻辑
+        window.onload = function() {
+            if(db.name) {
+                document.getElementById('init-scrim').style.display = 'none';
+                render();
+            }
         }
 
-        function 刷新主页() {
-            document.getElementById('用户展示').innerText = `代号：${数据.用户名}`;
-            document.getElementById('今日数').innerText = 数据.今日;
-            document.getElementById('总计数').innerText = 数据.总计;
+        function saveName() {
+            const input = document.getElementById('user-input').value.trim();
+            if(!input) { alert('请输入代号'); return; }
+            db.name = input;
+            localStorage.setItem('DEER_DATA_NEW', JSON.stringify(db));
+            document.getElementById('init-scrim').style.display = 'none';
+            render();
+        }
+
+        function go(n) {
+            document.querySelectorAll('.page').forEach((p, i) => p.classList.toggle('active', i === n));
+            document.querySelectorAll('.nav-item').forEach((p, i) => p.classList.toggle('nav-active', i === n));
+            const titles = ["🦌了吗", "活跃排名", "战绩地图", "我的"];
+            document.getElementById('header-title').innerText = titles[n];
             
-            // 模拟排行榜
-            const 地区 = ["广东省", "江苏省", "山东省", "河南省", "四川省"];
-            let html = "";
-            地区.forEach((d, i) => {
-                html += `<div class="排名项" style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid #eee;"><span>${i+1}. ${d}</span><b>${5000 - i*500}</b></div>`;
+            if(n === 2 && !document.getElementById('map-frame').src) {
+                document.getElementById('map-frame').src = "https://view.kuafuai.net";
+            }
+        }
+
+        function doDeer() {
+            db.day++; db.total++;
+            document.getElementById('code-area').style.display = 'block';
+            document.getElementById('code-val').innerText = Math.floor(100000 + Math.random()*900000);
+            render();
+            if(navigator.vibrate) navigator.vibrate(40);
+        }
+
+        function render() {
+            document.getElementById('day-c').innerText = db.day;
+            document.getElementById('all-c').innerText = db.total;
+            document.getElementById('show-name').innerText = `代号：${db.name}`;
+            localStorage.setItem('DEER_DATA_NEW', JSON.stringify(db));
+            
+            let h = "";
+            ["广东", "山东", "河南", "江苏", "四川"].forEach((prov, i) => {
+                h += `<div class="rank-item"><span>${i+1}. ${prov}省</span><b>${9200 - i*1400}</b></div>`;
             });
-            document.getElementById('排行列表').innerHTML = html;
+            document.getElementById('rank-list').innerHTML = h;
         }
 
-        function 打卡() {
-            数据.今日++; 数据.总计++;
-            localStorage.setItem('鹿数据', JSON.stringify(数据));
-            const code = Math.floor(100000 + Math.random() * 900000);
-            document.getElementById('随机码').innerText = code;
-            document.getElementById('助鹿模块').style.display = 'block';
-            刷新主页();
-            if (navigator.vibrate) navigator.vibrate(50);
-        }
-
-        function 切换(p) {
-            document.getElementById('主页内容').style.display = p === '主页' ? 'block' : 'none';
-            document.getElementById('关于内容').style.display = p === '关于' ? 'block' : 'none';
-        }
-
-        function 生成图片() {
-            const area = document.getElementById('分享区域');
-            const btn = document.getElementById('打卡键');
-            // 截图前隐藏按钮
-            btn.style.display = 'none';
-            
-            html2canvas(area, { backgroundColor: '#FEF7FF', scale: 2 }).then(canvas => {
-                const img = new Image();
-                img.src = canvas.toDataURL("image/png");
-                document.getElementById('截图容器').innerHTML = '';
-                document.getElementById('截图容器').appendChild(img);
-                document.getElementById('截图遮罩').style.display = 'flex';
-                btn.style.display = 'block';
+        function share() {
+            html2canvas(document.getElementById('capture-area'), {backgroundColor:'#F7F2FA'}).then(c => {
+                const link = document.createElement('a');
+                link.download = '战绩.png';
+                link.href = c.toDataURL();
+                link.click();
             });
         }
     </script>
