@@ -172,10 +172,10 @@
             localStorage.setItem('DEER_LAST_DATA', JSON.stringify(data));
             
             var h = "";
-            var provs = ["广东", "山东", "河南", "江苏", "四川"];
+            var provs = ["黄油乐奈", "黄油阿侬酱", "黄油", "客服大巴菲", "suki"];
             for(var i=0; i<provs.length; i++) {
                 h += '<div style="display:flex;justify-content:space-between;padding:15px 0;border-bottom:1px solid #f0f0f0;">' +
-                     '<span>'+ (i+1) + '. ' + provs[i] + '省</span><b>' + (9900 - i*1500) + '</b></div>';
+                     '<span>'+ (i+1) + '. ' + provs[i] + '</span><b>' + (9900 - i*1500) + '</b></div>';
             }
             document.getElementById('rank-list').innerHTML = h;
         }
