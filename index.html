@@ -1,215 +1,198 @@
 <!DOCTYPE html>
-<!-- saved from url=(0093)https://pub-98e77454d5fc46438fe6f46cf574e4e5.r2.dev/5a3e38ce-e028-4aa4-bb2d-18b25db91c2c.html -->
+<!-- saved from url=(0093)https://pub-98e77454d5fc46438fe6f46cf574e4e5.r2.dev/5456b2af-e8a0-4ad6-a8d9-00711edca44a.html -->
 <html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>🦌了吗</title>
+    <!-- 强制先加载截图插件 -->
     <script src="./🦌了吗_files/saved_resource"></script>
     <style>
-        :root {
-            --md-primary: #6750A4;
-            --md-surface: #F7F2FA;
-            --md-surface-variant: #E7E0EC;
-            --md-on-surface: #1C1B1F;
-            --md-outline: #79747E;
-        }
+        :root { --主色: #6750A4; --背景: #F7F2FA; --卡片: #E7E0EC; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body, html { height: 100%; margin: 0; font-family: sans-serif; background: var(--背景); overflow: hidden; }
 
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
-        body, html { height: 100%; margin: 0; font-family: 'Roboto', 'Noto Sans SC', sans-serif; background-color: var(--md-surface); color: var(--md-on-surface); overflow: hidden; }
+        /* 顶部栏 */
+        header { height: 60px; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: bold; color: var(--主色); border-bottom: 1px solid #ddd; }
 
-        /* 安卓顶部栏 */
-        header { height: 64px; display: flex; align-items: center; padding: 0 16px; font-size: 22px; font-weight: 400; background: var(--md-surface); }
+        /* 视图区 */
+        #content { height: calc(100% - 140px); overflow-y: auto; padding: 15px; position: relative; }
+        .view { display: none; }
+        .active { display: block !important; }
 
-        /* 页面容器 */
-        #content { height: calc(100% - 144px); overflow-y: auto; padding: 0 16px; scroll-behavior: smooth; }
-        .page { display: none; animation: android-fade 0.3s ease-out; }
-        .active { display: block; }
-        @keyframes android-fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        /* 安卓卡片 */
+        .card { background: var(--卡片); border-radius: 28px; padding: 25px; margin-bottom: 15px; }
+        .num { font-size: 45px; font-weight: 900; color: var(--主色); text-align: center; display: block; }
+        .label { font-size: 13px; color: #79747E; text-align: center; }
 
-        /* 安卓卡片风格 */
-        .card { background: var(--md-surface-variant); border-radius: 28px; padding: 24px; margin-bottom: 16px; border: none; }
-        .stat-box { display: flex; justify-content: space-around; text-align: center; }
-        .val { font-size: 44px; font-weight: 500; color: var(--md-primary); line-height: 1; }
-        .label { font-size: 14px; color: var(--md-outline); margin-top: 8px; }
+        /* 核心按钮 */
+        .btn-deer { background: var(--主色); color: white; border: none; width: 100%; padding: 20px; border-radius: 30px; font-size: 20px; font-weight: bold; margin-top: 15px; cursor: pointer; }
+        .btn-deer:active { opacity: 0.8; transform: scale(0.96); }
 
-        /* 安卓原生大按钮 (Filled Button) */
-        .btn-main { 
-            background: var(--md-primary); color: white; border: none; width: 100%; height: 56px;
-            border-radius: 28px; font-size: 18px; font-weight: 500; cursor: pointer; margin-top: 24px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: 0.2s;
-        }
-        .btn-main:active { opacity: 0.8; transform: scale(0.97); }
+        /* JM助鹿 */
+        #jm-box { background: #F3EDF7; border: 2px dashed var(--主色); border-radius: 20px; padding: 15px; margin-top: 15px; text-align: center; display: none; }
+        .code { font-size: 32px; font-weight: 900; color: #B3261E; letter-spacing: 4px; }
 
-        /* 助🦌代码区域 */
-        .code-box { background: #F3EDF7; border: 1px solid var(--md-primary); border-radius: 16px; padding: 16px; margin-top: 16px; display: none; text-align: center; }
-        .code-num { font-size: 32px; font-weight: 700; color: #B3261E; letter-spacing: 6px; }
+        /* 社区/关于 */
+        .link-btn { display: block; background: white; padding: 20px; border-radius: 20px; margin-bottom: 12px; text-align: center; text-decoration: none; color: #000; font-weight: bold; border: 1px solid #eee; }
 
-        /* 排名列表 */
-        .rank-item { display: flex; justify-content: space-between; padding: 16px 8px; border-bottom: 1px solid rgba(0,0,0,0.05); font-size: 16px; }
+        /* 底部导航 */
+        nav { position: fixed; bottom: 0; width: 100%; height: 80px; background: #F3EDF7; display: flex; align-items: center; border-top: 1px solid #ddd; z-index: 100; }
+        .tab { flex: 1; text-align: center; font-size: 14px; color: #79747E; cursor: pointer; font-weight: bold; }
+        .tab-active { color: var(--主色); }
+        .pill { width: 60px; height: 32px; border-radius: 16px; margin: 0 auto 4px; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
+        .tab-active .pill { background: #E8DEF8; }
 
-        /* 安卓底部导航 (Navigation Bar) */
-        nav { 
-            position: fixed; bottom: 0; width: 100%; height: 80px; background: #F3EDF7; 
-            display: flex; justify-content: space-around; align-items: center; padding-bottom: 12px;
-        }
-        .nav-item { 
-            flex: 1; text-align: center; font-size: 12px; font-weight: 500; color: var(--md-outline); 
-            display: flex; flex-direction: column; align-items: center; transition: 0.3s;
-        }
-        .nav-active { color: var(--md-primary); }
-        /* 安卓指示药丸 */
-        .indicator { 
-            width: 64px; height: 32px; border-radius: 16px; display: flex; align-items: center; 
-            justify-content: center; margin-bottom: 4px; transition: 0.3s;
-        }
-        .nav-active .indicator { background: #E8DEF8; }
+        /* 强制弹窗 */
+        .mask { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+        .dialog { background: white; padding: 30px; border-radius: 28px; width: 85%; }
+        input { width: 100%; padding: 15px; border: 2px solid var(--主色); border-radius: 15px; font-size: 18px; margin: 20px 0; outline: none; }
 
-        /* 欢迎遮罩层 */
-        .scrim { position: fixed; inset: 0; background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; z-index: 2000; }
-        .dialog { background: var(--md-surface); padding: 24px; border-radius: 28px; width: 85%; max-width: 320px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
-        .dialog h3 { margin: 0 0 16px; font-weight: 400; font-size: 24px; }
-        /* 安卓风格输入框 */
-        .md-input {
-            width: 100%; border: none; border-bottom: 2px solid var(--md-primary); 
-            background: var(--md-surface-variant); padding: 12px; border-radius: 4px 4px 0 0;
-            font-size: 16px; margin-bottom: 24px;
-        }
+        /* 截图预览 */
+        #img-preview { position: fixed; inset: 0; background: rgba(0,0,0,0.9); display: none; flex-direction: column; align-items: center; justify-content: center; z-index: 10000; }
+        #img-preview img { max-width: 90%; border-radius: 15px; border: 2px solid white; }
     </style>
 </head>
 <body>
 
-    <!-- 初始化弹窗 -->
-    <div id="init-scrim" class="scrim">
+    <!-- 代号输入 -->
+    <div id="mask" class="mask">
         <div class="dialog">
-            <h3>设置代号</h3>
-            <input type="text" id="user-input" class="md-input" placeholder="代号 (如: MZTNHZK)" autocomplete="off">
-            <button onclick="saveName()" class="btn-main" style="margin-top:0">开始🦌管</button>
+            <h2 style="margin:0">代号设置</h2>
+            <input type="text" id="name-in" placeholder="输入代号">
+            <button onclick="saveName()" class="btn-deer" style="margin-top:0">开始🦌管</button>
         </div>
     </div>
 
-    <header id="header-title">🦌了吗</header>
+    <!-- 截图预览层 -->
+    <div id="img-preview" onclick="this.style.display=&#39;none&#39;">
+        <p style="color:white;">长按下方图片保存战绩</p>
+        <div id="img-box"></div>
+        <p style="color:white; font-size:12px;">点击任意位置关闭</p>
+    </div>
+
+    <header>🦌了吗</header>
 
     <div id="content">
         <!-- 首页 -->
-        <div id="p0" class="page active">
-            <div id="capture-area">
-                <div style="padding: 8px; font-weight: 500; opacity: 0.8" id="show-name">正在载入...</div>
+        <div id="v0" class="view active">
+            <div id="shot-area" style="background: var(--背景); padding: 10px; border-radius: 20px;">
+                <div id="name-out" style="text-align:center; font-weight:bold; color:var(--主色); padding:10px;">代号：...</div>
                 <div class="card">
-                    <div class="stat-box">
-                        <div><div class="val" id="day-c">0</div><div class="label">今日🦌管</div></div>
-                        <div><div class="val" id="all-c">0</div><div class="label">累计总数</div></div>
+                    <div style="display:flex; justify-content:space-around;">
+                        <div><span class="num" id="j-val">0</span><span class="label">今日🦌管</span></div>
+                        <div><span class="num" id="z-val">0</span><span class="label">累计总数</span></div>
                     </div>
-                    <button class="btn-main" onclick="doDeer()">立即🦌管</button>
-                    <div class="code-box" id="code-area">
-                        <div class="label" style="margin-top:0">✨ JM助🦌代码 ✨</div>
-                        <div class="code-num" id="code-val">000000</div>
+                    <button class="btn-deer" onclick="doDeer()">立即🦌管</button>
+                    <div id="jm-box">
+                        <div class="label" style="font-weight:bold;">✨ JM助🦌代码 ✨</div>
+                        <div class="code" id="code-val">000000</div>
                     </div>
                 </div>
             </div>
-            <button onclick="share()" style="background:none; border:1px solid var(--md-outline); color:var(--md-primary); width:100%; padding:12px; border-radius:100px; font-weight:500;">保存战绩卡片</button>
+            <button onclick="makeShot()" style="width:100%; border:1px solid #79747E; background:none; color:var(--主色); padding:12px; border-radius:50px; font-weight:bold; cursor:pointer;">生成战绩海报</button>
         </div>
 
         <!-- 排名 -->
-        <div id="p1" class="page">
+        <div id="v1" class="view">
             <div class="card" style="background:white; border:1px solid #eee;">
-                <div style="font-weight:500; padding-bottom:16px; text-align:center;">全国活跃排行 (每周更新)</div>
+                <div style="text-align:center; font-weight:bold; margin-bottom:20px;">地区活跃排行</div>
                 <div id="rank-list"></div>
             </div>
         </div>
 
-        <!-- 地图 -->
-        <div id="p2" class="page" style="height:100%; padding:0">
-            <iframe id="map-frame" src="./🦌了吗_files/saved_resource.html" style="width:100%; height:100%; border:none;"></iframe>
-        </div>
-
         <!-- 我的 -->
-        <div id="p3" class="page">
-            <div class="card">
-                <div style="text-align:center">
-                    <div class="label">开发团队</div>
-                    <div style="font-size:24px; font-weight:500; color:var(--md-primary); margin:8px 0;">Yresr &amp; MZTN</div>
-                    <div style="height:1px; background:rgba(0,0,0,0.05); margin:20px 0;"></div>
-                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px">
-                        <a href="https://pub-98e77454d5fc46438fe6f46cf574e4e5.r2.dev/qr%20by%20qq.html"style="text-decoration:none; color:inherit; background:white; padding:16px; border-radius:16px; font-size:14px; font-weight:500">社区论坛</a>
-                        <a href="https://view.kuafuai.net/1159237/pagesA/user_center/index" style="text-decoration:none; color:inherit; background:white; padding:16px; border-radius:16px; font-size:14px; font-weight:500">在线社区</a>
-                    </div>
-                </div>
+        <div id="v2" class="view">
+            <div class="card" style="text-align:center;">
+                <div class="label">开发团队</div>
+                <div style="font-size:26px; font-weight:bold; color:var(--主色); margin:10px 0;">Yresr &amp; MZTN</div>
+                <div style="height:1px; background:rgba(0,0,0,0.1); margin:20px 0;"></div>
+                
+                <a href="https://qun.qq.com/" class="link-btn" target="_blank"> QQ社区</a>
+                <a href="https://view.kuafuai.net/1159237/" class="link-btn" target="_blank"> 在线社区</a>
+                
+                <p class="label" style="margin-top:20px;">版本: 1.0.091</p>
             </div>
         </div>
     </div>
 
     <nav>
-        <div class="nav-item nav-active" onclick="go(0)"><div class="indicator">首</div>首页</div>
-        <div class="nav-item" onclick="go(1)"><div class="indicator">排</div>排名</div>
-        <div class="nav-item" onclick="go(2)"><div class="indicator">图</div>地图</div>
-        <div class="nav-item" onclick="go(3)"><div class="indicator">我</div>我的</div>
+        <div class="tab tab-active" onclick="go(0)"><div class="pill">首</div>首页</div>
+        <div class="tab" onclick="go(1)"><div class="pill">排</div>排行</div>
+        <div class="tab" onclick="jumpMap()"><div class="pill">地</div>地图</div>
+        <div class="tab" onclick="go(2)"><div class="pill">我</div>我的</div>
     </nav>
 
     <script>
-        // 核心数据逻辑
-        let db = JSON.parse(localStorage.getItem('DEER_DATA_NEW')) || { day:0, total:0, name:"", date:"" };
-        const now = new Date().toDateString();
+        // 初始化存储
+        var data = JSON.parse(localStorage.getItem('DEER_LAST_DATA')) || { j:0, z:0, n:"", t:"" };
+        var today = new Date().toDateString();
+        if(data.t !== today) { data.j = 0; data.t = today; }
 
-        // 跨天重置
-        if(db.date !== now) { db.day = 0; db.date = now; }
-
-        // 修复初始化逻辑
-        window.onload = function() {
-            if(db.name) {
-                document.getElementById('init-scrim').style.display = 'none';
-                render();
-            }
+        // 检查名字
+        if(data.n) {
+            document.getElementById('mask').style.display = 'none';
+            render();
         }
 
         function saveName() {
-            const input = document.getElementById('user-input').value.trim();
-            if(!input) { alert('请输入代号'); return; }
-            db.name = input;
-            localStorage.setItem('DEER_DATA_NEW', JSON.stringify(db));
-            document.getElementById('init-scrim').style.display = 'none';
+            var n = document.getElementById('name-in').value.trim();
+            if(!n) { alert('请输入代号'); return; }
+            data.n = n;
+            document.getElementById('mask').style.display = 'none';
             render();
         }
 
         function go(n) {
-            document.querySelectorAll('.page').forEach((p, i) => p.classList.toggle('active', i === n));
-            document.querySelectorAll('.nav-item').forEach((p, i) => p.classList.toggle('nav-active', i === n));
-            const titles = ["🦌了吗", "活跃排名", "战绩地图", "我的"];
-            document.getElementById('header-title').innerText = titles[n];
-            
-            if(n === 2 && !document.getElementById('map-frame').src) {
-                document.getElementById('map-frame').src = "https://view.kuafuai.net";
+            var views = document.getElementsByClassName('view');
+            var tabs = document.getElementsByClassName('tab');
+            for(var i=0; i<views.length; i++) {
+                views[i].className = 'view';
+                tabs[i === 2 ? 3 : i].className = 'tab';
             }
+            document.getElementById('v' + n).className = 'view active';
+            document.querySelectorAll('.tab')[n === 2 ? 3 : n].className = 'tab tab-active';
+        }
+
+        function jumpMap() {
+            window.location.href = "https://view.kuafuai.net/1172980/?state=none&lang=zh-CN&app_invite_code=HRPEC9TM&app_id=172980&user=MZTNHZK";
         }
 
         function doDeer() {
-            db.day++; db.total++;
-            document.getElementById('code-area').style.display = 'block';
+            data.j++; data.z++;
+            document.getElementById('jm-box').style.display = 'block';
             document.getElementById('code-val').innerText = Math.floor(100000 + Math.random()*900000);
             render();
-            if(navigator.vibrate) navigator.vibrate(40);
+            if(navigator.vibrate) navigator.vibrate(50);
         }
 
         function render() {
-            document.getElementById('day-c').innerText = db.day;
-            document.getElementById('all-c').innerText = db.total;
-            document.getElementById('show-name').innerText = `代号：${db.name}`;
-            localStorage.setItem('DEER_DATA_NEW', JSON.stringify(db));
+            document.getElementById('j-val').innerText = data.j;
+            document.getElementById('z-val').innerText = data.z;
+            document.getElementById('name-out').innerText = "代号：" + data.n;
+            localStorage.setItem('DEER_LAST_DATA', JSON.stringify(data));
             
-            let h = "";
-            ["黄油乐奈", "黄油阿侬酱", "黄油ob一串", "客服大巴菲", "舍不动了"].forEach((prov, i) => {
-                h += `<div class="rank-item"><span>${i+1}. ${prov}</span><b>${9200 - i*1400}</b></div>`;
-            });
+            var h = "";
+            var provs = ["广东", "山东", "河南", "江苏", "四川"];
+            for(var i=0; i<provs.length; i++) {
+                h += '<div style="display:flex;justify-content:space-between;padding:15px 0;border-bottom:1px solid #f0f0f0;">' +
+                     '<span>'+ (i+1) + '. ' + provs[i] + '省</span><b>' + (9900 - i*1500) + '</b></div>';
+            }
             document.getElementById('rank-list').innerHTML = h;
         }
 
-        function share() {
-            html2canvas(document.getElementById('capture-area'), {backgroundColor:'#F7F2FA'}).then(c => {
-                const link = document.createElement('a');
-                link.download = '战绩.png';
-                link.href = c.toDataURL();
-                link.click();
+        function makeShot() {
+            var area = document.getElementById('shot-area');
+            html2canvas(area, { backgroundColor: '#F7F2FA' }).then(function(canvas) {
+                var img = new Image();
+                img.src = canvas.toDataURL();
+                document.getElementById('img-box').innerHTML = '';
+                document.getElementById('img-box').appendChild(img);
+                document.getElementById('img-preview').style.display = 'flex';
+            }).catch(function(e) {
+                alert('截图失败，请确保网络连接正常以加载插件');
             });
         }
     </script>
+
 
 </body></html>
